@@ -44,5 +44,13 @@ dnf install -y cri-o kubelet kubeadm kubectl
 systemctl enable --now crio
 systemctl enable --now kubelet
 
+kubeadm init --pod-network-cidr=10.244.0.0/16
+kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
 
 
